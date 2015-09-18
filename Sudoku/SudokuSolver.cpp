@@ -22,10 +22,7 @@ void SudokuSolver::solveSudoku(char board[9][9]) {
 	}
 	int possibleValue = 0;
 	for (possibleValue = 1; possibleValue <= 9; ++possibleValue) {
-		if (solveNext(nextX, nextY, (char)(possibleValue + 48), board)) {
-			break;
-		}
-
+		solveNext(nextX, nextY, (char)(possibleValue + 48), board);
 	}
 }
 
