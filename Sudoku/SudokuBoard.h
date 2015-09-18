@@ -10,11 +10,12 @@ class SudokuBoard {
 public:
 	char board[9][9];
 	SudokuBoard::SudokuBoard(string);
-	bool isValidSpot(int x, int y, char value);
 	bool isValidSudoku();
 	void drawBoard();
-	bool solveSudoku();
-	
+	void solveSudoku();
+private:
+	bool solveNext(int locationX, int locationY, char value);
+	bool isValidSpot(int x, int y, char value);
 };
 
 #endif

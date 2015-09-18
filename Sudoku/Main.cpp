@@ -13,10 +13,10 @@ int main()
 	
 	SudokuBoard sudoku(fileName);
 	sudoku.drawBoard();
-	cout << (sudoku.solveSudoku() ? "solved" : "unsolvable") << endl;
+	sudoku.solveSudoku();
+	cout << "-------------------" << endl;
 	sudoku.drawBoard();
-
-	//cout << sudoku.isValidSudoku() << endl;
+	cout << sudoku.isValidSudoku() << endl;
 }
 
 

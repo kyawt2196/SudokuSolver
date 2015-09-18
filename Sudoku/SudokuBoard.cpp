@@ -28,58 +28,6 @@ SudokuBoard::SudokuBoard(std::string name) {
 	}
 }
 
-bool SudokuBoard::isValidSpot(int locationX, int locationY, char value) {
-	for (int y = 0; y < 9; y++) {
-		if (board[locationX][y] == value) {
-			return false;
-		}
-	}
-	for (int x = 0; x < 9; x++) {
-		if (board[x][locationY] == value) {
-			return false;
-		}
-	}
-	int startX = locationX / 3 * 3;
-	int startY = locationY / 3 * 3;
-	for (int x = startX; x < startX + 3; x++) {
-		for (int y = startY; y < startY + 3; y++) {
-			if (board[x][y] == value) {
-				return false;
-			}
-		}
-	}
-	
-	int nextX = locationX;
-	int nextY = locationY;
-	board[locationX][locationY] = value;
-	do {
-		++nextX;
-		if (nextX > 8) {
-			nextX = 0;
-			nextY++;
-			if (nextY > 8) {
-				return true;
-			}
-		}
-	}while(board[nextX][nextY] != '-');
-	int possibleValue = 0;
-
-	for (possibleValue = 1; possibleValue <= 9; ++possibleValue) {
-		if (isValidSpot(nextX, nextY, (char)(possibleValue + 48))) {
-			break;
-		}
-		
-	}
-	if (possibleValue > 9) {
-		board[locationX][locationY] = '-';
-		return false;
-	}
-	drawBoard();
-	cout << "----------------------------------" << endl;
-	return true;
-}
-
-
 bool SudokuBoard::isValidSudoku() {
 	//check vertical
 	unordered_set<char> myset;
@@ -150,7 +98,7 @@ void SudokuBoard::drawBoard() {
 	}
 }
 
-bool SudokuBoard::solveSudoku() {
+void SudokuBoard::solveSudoku() {
 	int nextX = 0;
 	int nextY = 0;
 	while (board[nextX][nextY] != '-') {
@@ -166,11 +114,138 @@ bool SudokuBoard::solveSudoku() {
 	}
 	int possibleValue = 0;
 	for (possibleValue = 1; possibleValue <= 9; ++possibleValue) {
-		if (isValidSpot(nextX, nextY, (char)(possibleValue + 48))) {
+		if (solveNext(nextX, nextY, (char)(possibleValue + 48))) {
 			break;
 		}
 
 	}
-	return possibleValue <= 9;
 }
 
+bool SudokuBoard::solveNext(int locationX, int locationY, char value) {
+	if (isValidSpot(locationX, locationY, value)) {
+		int nextX = locationX;
+		int nextY = locationY;
+		board[locationX][locationY] = value;
+		do {
+			++nextX;
+			if (nextX > 8) {
+				nextX = 0;
+				nextY++;
+				if (nextY > 8) {
+					return true;
+				}
+			}
+		} while (board[nextX][nextY] != '-');
+		int possibleValue = 0;
+
+		for (possibleValue = 1; possibleValue <= 9; ++possibleValue) {
+			if (solveNext(nextX, nextY, (char)(possibleValue + 48))) {
+				return true;
+			}
+		}
+		board[locationX][locationY] = '-';
+		return false;
+	}
+	else {
+		return false;
+	}
+}
+
+bool SudokuBoard::isValidSpot(int locationX, int locationY, char value) {
+	for (int y = 0; y < 9; y++) {
+		if (board[locationX][y] == value) {
+			return false;
+		}
+	}
+	for (int x = 0; x < 9; x++) {
+		if (board[x][locationY] == value) {
+			return false;
+		}
+	}
+	int startX = locationX / 3 * 3;
+	int startY = locationY / 3 * 3;
+	for (int x = startX; x < startX + 3; x++) {
+		for (int y = startY; y < startY + 3; y++) {
+			if (board[x][y] == value) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+/*
+bool SudokuBoard::solveSudoku() {
+int nextX = 0;
+int nextY = 0;
+while (board[nextX][nextY] != '-') {
+++nextX;
+if (nextX > 8) {
+if (nextY == 8) {
+nextX = nextY;
+break;
+}
+nextX = 0;
+nextY++;
+}
+}
+int possibleValue = 0;
+for (possibleValue = 1; possibleValue <= 9; ++possibleValue) {
+if (isValidSpot(nextX, nextY, (char)(possibleValue + 48))) {
+break;
+}
+
+}
+return possibleValue <= 9;
+}
+bool SudokuBoard::isValidSpot(int locationX, int locationY, char value) {
+for (int y = 0; y < 9; y++) {
+if (board[locationX][y] == value) {
+return false;
+}
+}
+for (int x = 0; x < 9; x++) {
+if (board[x][locationY] == value) {
+return false;
+}
+}
+int startX = locationX / 3 * 3;
+int startY = locationY / 3 * 3;
+for (int x = startX; x < startX + 3; x++) {
+for (int y = startY; y < startY + 3; y++) {
+if (board[x][y] == value) {
+return false;
+}
+}
+}
+
+int nextX = locationX;
+int nextY = locationY;
+board[locationX][locationY] = value;
+do {
+++nextX;
+if (nextX > 8) {
+nextX = 0;
+nextY++;
+if (nextY > 8) {
+return true;
+}
+}
+}while(board[nextX][nextY] != '-');
+int possibleValue = 0;
+
+for (possibleValue = 1; possibleValue <= 9; ++possibleValue) {
+if (isValidSpot(nextX, nextY, (char)(possibleValue + 48))) {
+break;
+}
+
+}
+if (possibleValue > 9) {
+board[locationX][locationY] = '-';
+return false;
+}
+drawBoard();
+cout << "----------------------------------" << endl;
+return true;
+}
+*/
