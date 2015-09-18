@@ -148,9 +148,11 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SudokuBoard.cpp" />
+    <ClCompile Include="SudokuSolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SudokuBoard.h" />
+    <ClInclude Include="SudokuSolver.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="save1.txt" />

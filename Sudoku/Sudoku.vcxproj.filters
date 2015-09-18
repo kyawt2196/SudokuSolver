@@ -21,9 +21,15 @@
     <ClCompile Include="SudokuBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SudokuSolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SudokuBoard.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SudokuSolver.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

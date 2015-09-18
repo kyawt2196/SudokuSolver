@@ -1,6 +1,6 @@
 #include <iostream>
 #include "SudokuBoard.h"
-
+#include "SudokuSolver.h"
 //#include <string>
 using namespace std;
 
@@ -12,11 +12,17 @@ int main()
 	cout << "entered - " + fileName << endl;
 	
 	SudokuBoard sudoku(fileName);
+	SudokuSolver solver;
 	sudoku.drawBoard();
-	sudoku.solveSudoku();
+
+	solver.solveSudoku(sudoku.board);
+
+
 	cout << "-------------------" << endl;
 	sudoku.drawBoard();
-	cout << sudoku.isValidSudoku() << endl;
+	if (sudoku.isValidSudoku()) {
+		cout << "Sudoku is valid!" << endl;
+	}
 }
 
 
