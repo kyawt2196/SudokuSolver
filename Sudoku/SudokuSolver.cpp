@@ -79,7 +79,4 @@ bool SudokuSolver::isValidSpot(int locationX, int locationY, char value, char bo
 	return true;
 }
 
-int SudokuSolver::testMethod() {
-	return 1;
-}
 
